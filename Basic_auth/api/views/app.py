@@ -63,6 +63,13 @@ def authenticate_user():
                 abort(401)
             if user is None:
                 abort(403)
+                
+@app.after_request
+def add_security_header(response):
+    response.headers["Content-Security-Policy"] = "default-src 'self'"
+    response.headers["Access-Control-Allow-Origin"] = "*"
+    response.headers["Access-Control-Allow-Headers"] = ", ".join(required_headers)
+    return response
 
 
 
