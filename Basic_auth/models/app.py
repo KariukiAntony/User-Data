@@ -38,3 +38,20 @@ class User(Base):
             return False
         else:
             pwd_e = hashlib.sha256(pwd.encode()).hexdigest().lower() == self.password
+
+    def display_user_info(self) -> str:
+        """ Display User name based on email/ first_name/ last_name
+        """
+        if self.email is None and self.first_name is None and\
+            self.last_name is None:
+            return " "
+        if self.first_name is None and self.last_name is None:
+            return "{}".format(self.email)
+        
+        if  self.first_name is None:
+            return "{}".format(self.last_name)
+        
+        if self.last_name is None:
+            return "{}".format(self.first_name)
+        else:
+            return "{} {}".format(self.first_name, self.last_name)
